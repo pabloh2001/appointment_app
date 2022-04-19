@@ -1,21 +1,22 @@
-package com.project.citasapp.persistence.entity;
+package com.project.appointment.persistence.entity;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "detalle_citas")
 public class DetalleCitas {
     @EmbeddedId
     private DetalleCitasPK id;
-    private String hora;
+    private LocalTime hora;
 
     @ManyToOne
     @MapsId("idCita")
-    @JoinColumn(name = "id_cita", insertable = false, updatable = false)
+    @JoinColumn(name = "citas_id_cita", insertable = false, updatable = false)
     private Cita cita;
 
     @ManyToOne
-    @JoinColumn(name = "id_medico", insertable = false, updatable = false)
+    @JoinColumn(name = "pacientes_id_paciente", insertable = false, updatable = false)
     private Paciente paciente;
 
     public DetalleCitasPK getId() {
@@ -26,11 +27,11 @@ public class DetalleCitas {
         this.id = id;
     }
 
-    public String getHora() {
+    public LocalTime getHora() {
         return hora;
     }
 
-    public void setHora(String hora) {
+    public void setHora(LocalTime hora) {
         this.hora = hora;
     }
 
@@ -50,4 +51,13 @@ public class DetalleCitas {
         this.paciente = paciente;
     }
 
+    @Override
+    public String toString() {
+        return "DetalleCitas{" +
+                "id=" + id +
+                ", hora=" + hora +
+                ", cita=" + cita +
+                ", paciente=" + paciente +
+                '}';
+    }
 }

@@ -1,31 +1,32 @@
-package com.project.citasapp.domain.dto;
+package com.project.appointment.domain.dto;
+
+import java.time.LocalTime;
 
 public class AppointmentsDetail {
-    private int appointmentId;
-    private String time;
-    private Patient patient;
+    private String patientId;
+    private LocalTime time;
 
-    public int getAppointmentId() {
-        return appointmentId;
+    public String getPatientId() {
+        return patientId;
     }
 
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
-    public String getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    @Override
+    public String toString() {
+        return "AppointmentsDetail{" +
+                "patientId='" + patientId + '\'' +
+                ", time=" + time +
+                '}';
     }
 }

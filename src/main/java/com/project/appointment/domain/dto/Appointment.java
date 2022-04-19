@@ -1,12 +1,15 @@
-package com.project.citasapp.domain.dto;
+package com.project.appointment.domain.dto;
 
+import org.apache.tomcat.jni.Local;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class Appointment {
     private long appointmentId;
     private String doctorId;
-    private Date date;
+    private LocalDate date;
     private String state;
     private List<AppointmentsDetail> appointments;
 
@@ -26,11 +29,11 @@ public class Appointment {
         this.doctorId = doctorId;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -48,5 +51,16 @@ public class Appointment {
 
     public void setAppointments(List<AppointmentsDetail> appointments) {
         this.appointments = appointments;
+    }
+
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "appointmentId=" + appointmentId +
+                ", doctorId='" + doctorId + '\'' +
+                ", date=" + date +
+                ", state='" + state + '\'' +
+                ", appointments=" + appointments +
+                '}';
     }
 }

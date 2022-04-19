@@ -1,15 +1,17 @@
-package com.project.citasapp.domain.dto;
+package com.project.appointment.domain.dto;
 
-import java.util.List;
+import java.time.LocalTime;
 
 public class Doctor {
     private String doctorId;
+    private String typeId;
     private String fullName;
     private double experienceYears;
-    private String startTime;
-    private String endTime;
+    private long specialityId;
+    private String proCardNum;
+    private LocalTime startTime;
+    private LocalTime endTime;
     private Speciality speciality;
-    private List<Appointment> appointments;
 
     public String getDoctorId() {
         return doctorId;
@@ -17,6 +19,14 @@ public class Doctor {
 
     public void setDoctorId(String doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
     }
 
     public String getFullName() {
@@ -35,19 +45,35 @@ public class Doctor {
         this.experienceYears = experienceYears;
     }
 
-    public String getStartTime() {
+    public long getSpecialityId() {
+        return specialityId;
+    }
+
+    public void setSpecialityId(long specialityId) {
+        this.specialityId = specialityId;
+    }
+
+    public String getProCardNum() {
+        return proCardNum;
+    }
+
+    public void setProCardNum(String proCardNum) {
+        this.proCardNum = proCardNum;
+    }
+
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(LocalTime startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    public void setEndTime(LocalTime endTime) {
         this.endTime = endTime;
     }
 
@@ -59,11 +85,4 @@ public class Doctor {
         this.speciality = speciality;
     }
 
-    public List<Appointment> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<Appointment> appointments) {
-        this.appointments = appointments;
-    }
 }

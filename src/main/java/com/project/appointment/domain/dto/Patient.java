@@ -1,13 +1,19 @@
-package com.project.citasapp.domain.dto;
+package com.project.appointment.domain.dto;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
 public class Patient {
+    @NotNull(message = "el id no debe ser nulo")
     private String patientId;
+    @NotNull(message = "el tipo de identificacion no debe ser nulo")
+    private String typeId;
+    @NotNull(message = "el nombre no debe ser nulo")
     private String fullName;
-    private Date birthDate;
-    private String eps;
+    private LocalDate birthDate;
+    private String epsAfiliate;
     private String clinicHistory;
 
     public String getPatientId() {
@@ -18,6 +24,14 @@ public class Patient {
         this.patientId = patientId;
     }
 
+    public String getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(String typeId) {
+        this.typeId = typeId;
+    }
+
     public String getFullName() {
         return fullName;
     }
@@ -26,20 +40,20 @@ public class Patient {
         this.fullName = fullName;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public String getEps() {
-        return eps;
+    public String getEpsAfiliate() {
+        return epsAfiliate;
     }
 
-    public void setEps(String eps) {
-        this.eps = eps;
+    public void setEpsAfiliate(String epsAfiliate) {
+        this.epsAfiliate = epsAfiliate;
     }
 
     public String getClinicHistory() {
@@ -50,4 +64,15 @@ public class Patient {
         this.clinicHistory = clinicHistory;
     }
 
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "patientId='" + patientId + '\'' +
+                ", typeId='" + typeId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", birthDate=" + birthDate +
+                ", epsAfiliate='" + epsAfiliate + '\'' +
+                ", clinicHistory='" + clinicHistory + '\'' +
+                '}';
+    }
 }

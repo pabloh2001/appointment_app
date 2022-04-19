@@ -1,4 +1,4 @@
-package com.project.citasapp.persistence.entity;
+package com.project.appointment.persistence.entity;
 
 import javax.persistence.*;
 import java.util.List;

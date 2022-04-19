@@ -1,25 +1,26 @@
-package com.project.citasapp.persistence.entity;
+package com.project.appointment.persistence.entity;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "pacientes")
 public class Paciente {
     @Id
-    @Column(name = "id_cliente")
+    @Column(name = "id_paciente")
     private String idPaciente;
     @Column(name = "nombre_completo")
     private String nombreCompleto;
     @Column(name = "tipo_id")
     private String tipoId;
     @Column(name = "fecha_nacimiento")
-    private Date fecha_nacimiento;
+    private LocalDate fechaNacimiento;
     @Column(name = "EPS")
     private String eps;
     @Column(name = "historia_clinica")
-    private String historia_clinica;
+    private String historiaClinica;
 
     public String getIdPaciente() {
         return idPaciente;
@@ -45,12 +46,12 @@ public class Paciente {
         this.tipoId = tipoId;
     }
 
-    public Date getFecha_nacimiento() {
-        return fecha_nacimiento;
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
     }
 
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getEps() {
@@ -61,11 +62,23 @@ public class Paciente {
         this.eps = eps;
     }
 
-    public String getHistoria_clinica() {
-        return historia_clinica;
+    public String getHistoriaClinica() {
+        return historiaClinica;
     }
 
-    public void setHistoria_clinica(String historia_clinica) {
-        this.historia_clinica = historia_clinica;
+    public void setHistoriaClinica(String historiaClinica) {
+        this.historiaClinica = historiaClinica;
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "idPaciente='" + idPaciente + '\'' +
+                ", nombreCompleto='" + nombreCompleto + '\'' +
+                ", tipoId='" + tipoId + '\'' +
+                ", fechaNacimiento=" + fechaNacimiento +
+                ", eps='" + eps + '\'' +
+                ", historiaClinica='" + historiaClinica + '\'' +
+                '}';
     }
 }

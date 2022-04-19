@@ -1,4 +1,4 @@
-package com.project.citasapp.domain.dto;
+package com.project.appointment.domain.dto;
 
 public class Speciality {
     private long specialityId;

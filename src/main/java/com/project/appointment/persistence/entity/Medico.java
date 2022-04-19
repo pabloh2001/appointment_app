@@ -1,6 +1,7 @@
-package com.project.citasapp.persistence.entity;
+package com.project.appointment.persistence.entity;
 
 import javax.persistence.*;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -17,13 +18,15 @@ public class Medico {
     private String numTarjetaProfesional;
     @Column(name = "anos_experiencia")
     private Double tiempoExperiencia;
+    @Column(name = "especialidades_id_especialidad")
+    private Long idEspecialidad;
     @Column(name = "hora_inicio")
-    private String horaInicio;
+    private LocalTime horaInicio;
     @Column(name = "hora_fin")
-    private String horaFin;
+    private LocalTime horaFin;
 
     @ManyToOne
-    @JoinColumn(name = "id_especialidad", insertable = false, updatable = false)
+    @JoinColumn(name = "especialidades_id_especialidad", insertable = false, updatable = false)
     private Especialidad especialidad;
 
     @OneToMany(mappedBy = "medico")
@@ -69,19 +72,27 @@ public class Medico {
         this.tiempoExperiencia = tiempoExperiencia;
     }
 
-    public String getHoraInicio() {
+    public Long getIdEspecialidad() {
+        return idEspecialidad;
+    }
+
+    public void setIdEspecialidad(Long idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
+
+    public LocalTime getHoraInicio() {
         return horaInicio;
     }
 
-    public void setHoraInicio(String horaInicio) {
+    public void setHoraInicio(LocalTime horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public String getHoraFin() {
+    public LocalTime getHoraFin() {
         return horaFin;
     }
 
-    public void setHoraFin(String horaFin) {
+    public void setHoraFin(LocalTime horaFin) {
         this.horaFin = horaFin;
     }
 
@@ -99,5 +110,21 @@ public class Medico {
 
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
+    }
+
+    @Override
+    public String toString() {
+        return "Medico{" +
+                "idMedico='" + idMedico + '\'' +
+                ", nombreCompleto='" + nombreCompleto + '\'' +
+                ", tipoId='" + tipoId + '\'' +
+                ", numTarjetaProfesional='" + numTarjetaProfesional + '\'' +
+                ", tiempoExperiencia=" + tiempoExperiencia +
+                ", idEspecialidad=" + idEspecialidad +
+                ", horaInicio=" + horaInicio +
+                ", horaFin=" + horaFin +
+                ", especialidad=" + especialidad +
+                ", citas=" + citas +
+                '}';
     }
 }
