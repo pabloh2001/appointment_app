@@ -24,7 +24,7 @@ public class PatientController {
     @Autowired
     private PatientService patientService;
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<Patient>> getPatients(){
         return patientService.getAll().isEmpty() ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(patientService.getAll(), HttpStatus.OK);
     }
@@ -44,7 +44,7 @@ public class PatientController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     public ResponseEntity<Patient> save(@Valid @RequestBody Patient patient, BindingResult result){
         LOGGER.info(result.hasErrors());
         if (result.hasErrors()){

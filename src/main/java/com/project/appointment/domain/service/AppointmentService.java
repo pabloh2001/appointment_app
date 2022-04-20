@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 @Service
 public class AppointmentService {
@@ -25,6 +25,14 @@ public class AppointmentService {
     }
 
     public List<Appointment> getAll(){
+        String id1 = UUID.randomUUID().toString();
+        String id2 = UUID.randomUUID().toString();
+        String id3 = UUID.randomUUID().toString();
+        String id4 = UUID.randomUUID().toString();
+        LOGGER.info("identificador unico " + id1 + "longitud " + id1.length());
+        LOGGER.info("identificador unico " + id2 + "longitud " + id2.length());
+        LOGGER.info("identificador unico " + id3 + "longitud " + id3.length());
+        LOGGER.info("identificador unico " + id4 + "longitud " + id4.length());
         return appointmentRepository.getAll();
     }
 
@@ -33,7 +41,24 @@ public class AppointmentService {
     }
 
     public Appointment save(Appointment appointment){
+        getByDoctor(appointment.getDoctorId()).map(appointments -> {
+            appointments.forEach(actual -> {
+                if (actual.getDate().equals(appointment.getDate())){
+                    List<AppointmentsDetail> list = actual.getAppointments();
+                    list.addAll(appointment.getAppointments());
+                    appointment.setAppointments(list);
+                    updateAll(appointment);
+                }
+            });
+            return appointment;
+        });
+        LOGGER.info("No esta funcionando el return de la lambda");
+
         return appointmentRepository.save(appointment);
+    }
+
+    public void updateAll(Appointment appointment){
+        appointmentRepository.save(appointment);
     }
 
 }

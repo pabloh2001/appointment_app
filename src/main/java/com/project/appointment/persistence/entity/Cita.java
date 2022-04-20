@@ -2,16 +2,14 @@ package com.project.appointment.persistence.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "citas")
 public class Cita {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cita")
-    private Long idCita;
+    private String idCita;
     @Column(name = "medicos_id_medico")
     private String idMedico;
     private LocalDate fecha;
@@ -25,11 +23,11 @@ public class Cita {
     @OneToMany(mappedBy = "cita", cascade = {CascadeType.ALL})
     private List<DetalleCitas> detalles;
 
-    public Long getIdCita() {
+    public String getIdCita() {
         return idCita;
     }
 
-    public void setIdCita(Long idCita) {
+    public void setIdCita(String idCita) {
         this.idCita = idCita;
     }
 
@@ -73,15 +71,4 @@ public class Cita {
         this.detalles = detalles;
     }
 
-    @Override
-    public String toString() {
-        return "Cita{" +
-                "idCita=" + idCita +
-                ", idMedico='" + idMedico + '\'' +
-                ", fecha=" + fecha +
-                ", estado='" + estado + '\'' +
-                ", medico=" + medico +
-                ", detalles=" + detalles +
-                '}';
-    }
 }

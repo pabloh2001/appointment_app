@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
-@ControllerAdvice
+
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler

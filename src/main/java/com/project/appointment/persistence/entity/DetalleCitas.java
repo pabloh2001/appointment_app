@@ -51,13 +51,4 @@ public class DetalleCitas {
         this.paciente = paciente;
     }
 
-    @Override
-    public String toString() {
-        return "DetalleCitas{" +
-                "id=" + id +
-                ", hora=" + hora +
-                ", cita=" + cita +
-                ", paciente=" + paciente +
-                '}';
-    }
 }

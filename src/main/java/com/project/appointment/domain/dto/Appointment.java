@@ -7,17 +7,17 @@ import java.util.Date;
 import java.util.List;
 
 public class Appointment {
-    private long appointmentId;
+    private String appointmentId;
     private String doctorId;
     private LocalDate date;
     private String state;
     private List<AppointmentsDetail> appointments;
 
-    public long getAppointmentId() {
+    public String getAppointmentId() {
         return appointmentId;
     }
 
-    public void setAppointmentId(long appointmentId) {
+    public void setAppointmentId(String appointmentId) {
         this.appointmentId = appointmentId;
     }
 

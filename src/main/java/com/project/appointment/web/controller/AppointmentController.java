@@ -20,14 +20,13 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<Appointment>> getAppointments(){
         return new ResponseEntity<>(appointmentService.getAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     public ResponseEntity<Appointment> save(@RequestBody Appointment appointment){
-        LOGGER.info("informacion enviado " + appointment);
         return new ResponseEntity<>(appointmentService.save(appointment), HttpStatus.CREATED);
     }
 }

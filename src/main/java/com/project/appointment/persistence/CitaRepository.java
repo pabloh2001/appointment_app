@@ -2,10 +2,8 @@ package com.project.appointment.persistence;
 
 import com.project.appointment.domain.dto.Appointment;
 import com.project.appointment.domain.repository.AppointmentRepository;
-import com.project.appointment.domain.service.AppointmentService;
 import com.project.appointment.persistence.crud.CitaCrudRepository;
 import com.project.appointment.persistence.entity.Cita;
-import com.project.appointment.persistence.entity.Medico;
 import com.project.appointment.persistence.mapper.AppointmentMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -47,7 +45,6 @@ public class CitaRepository implements AppointmentRepository {
     @Override
     public Appointment save(Appointment appointment) {
         Cita cita = mapper.toCita(appointment);
-        LOGGER.info("informacion de la cita convertida " + cita);
         cita.getDetalles().forEach(detalleCitas -> detalleCitas.setCita(cita));
         return mapper.toAppointment(citaCrudRepository.save(cita));
     }
