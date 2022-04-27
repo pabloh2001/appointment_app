@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface CitaCrudRepository extends CrudRepository<Cita, Long> {
+public interface CitaCrudRepository extends CrudRepository<Cita, String> {
     Optional<List<Cita>> findByIdMedico(String idMedico);
 }

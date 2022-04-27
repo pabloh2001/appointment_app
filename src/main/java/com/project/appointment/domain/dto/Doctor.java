@@ -1,17 +1,25 @@
 package com.project.appointment.domain.dto;
 
+import com.project.appointment.domain.service.AppointmentService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Set;
 
 public class Doctor {
+
+    private final Log LOGGER = LogFactory.getLog(Doctor.class);
+
     private String doctorId;
     private String typeId;
     private String fullName;
     private double experienceYears;
-    private long specialityId;
     private String proCardNum;
     private LocalTime startTime;
     private LocalTime endTime;
-    private Speciality speciality;
+    private Set<Speciality> specialities;
 
     public String getDoctorId() {
         return doctorId;
@@ -45,14 +53,6 @@ public class Doctor {
         this.experienceYears = experienceYears;
     }
 
-    public long getSpecialityId() {
-        return specialityId;
-    }
-
-    public void setSpecialityId(long specialityId) {
-        this.specialityId = specialityId;
-    }
-
     public String getProCardNum() {
         return proCardNum;
     }
@@ -77,12 +77,17 @@ public class Doctor {
         this.endTime = endTime;
     }
 
-    public Speciality getSpeciality() {
-        return speciality;
+    public Set<Speciality> getSpecialities() {
+        return specialities;
     }
 
-    public void setSpeciality(Speciality speciality) {
-        this.speciality = speciality;
+    public void setSpecialities(Set<Speciality> specialities) {
+        this.specialities = specialities;
     }
 
+    public boolean isAvailable(LocalTime time){
+        LOGGER.info("Hora despues " + time.isAfter(startTime));
+        LOGGER.info("hora antes " + time.isBefore(endTime));
+        return (time.isAfter(startTime) && time.isBefore(endTime));
+    }
 }

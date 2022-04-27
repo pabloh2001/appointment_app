@@ -5,7 +5,9 @@ import com.project.appointment.domain.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -22,11 +24,12 @@ public class DoctorService {
         return doctorRepository.getAll();
     }
 
-    public Optional<List<Doctor>> getBySpeciality(long specialityId){
-        return doctorRepository.getBySpeciality(specialityId);
-    }
-
     public Doctor saveDoctor(Doctor doctor){
+        if (!doctor.getStartTime().isAfter(LocalTime.of(06, 00))
+        && doctor.getEndTime().isBefore(LocalTime.of(20, 00))){
+            throw new IllegalArgumentException("Error. El rango de horas de atención para un doctor" +
+                    " debe estar entre 06:00 y las 20:00 horas.");
+        }
         return doctorRepository.save(doctor);
     }
 

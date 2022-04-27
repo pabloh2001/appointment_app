@@ -1,5 +1,8 @@
-package com.project.appointment.utils.validators;
+package com.project.appointment.utils.HandlerExceptions;
 
+import com.project.appointment.persistence.CitaRepository;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,25 +15,29 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
-
-
+@ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+
+    private final Log LOGGER = LogFactory.getLog(RestExceptionHandler.class);
 
     @ExceptionHandler
     protected ResponseEntity<ErrorResponse> handleException(NoSuchElementException exc){
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        LOGGER.info(exc.getStackTrace().toString());
         return buildResponseEntity(httpStatus, exc);
     }
 
     @ExceptionHandler
     protected ResponseEntity<ErrorResponse> handleException(DuplicateKeyException exc){
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        LOGGER.info(exc.getStackTrace().toString());
         return buildResponseEntity(httpStatus, exc);
     }
 
     @ExceptionHandler
     protected ResponseEntity<ErrorResponse> handleException(IllegalArgumentException exc){
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
+        LOGGER.info(exc.getStackTrace().toString());
         return buildResponseEntity(httpStatus, exc);
     }
 
@@ -39,12 +46,14 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
         List<String> errors = exc.getResult().getFieldErrors().stream().map(FieldError::getDefaultMessage)
                 .collect(Collectors.toList());
+        LOGGER.info(exc.getStackTrace().toString());
         return buildResponseEntity(httpStatus, new RuntimeException("La data enviada es invalida"), errors);
     }
 
     @ExceptionHandler
     protected ResponseEntity<ErrorResponse> handleException(Exception exc){
         HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+        LOGGER.info(exc.getStackTrace().toString());
         return buildResponseEntity(httpStatus, new RuntimeException("Se presento un problema, intente mas tarde"));
     }
 

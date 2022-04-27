@@ -7,15 +7,15 @@ import java.io.Serializable;
 @Embeddable
 public class DetalleCitasPK implements Serializable {
     @Column(name = "citas_id_cita")
-    private Long idCita;
+    private String idCita;
     @Column(name = "pacientes_id_paciente")
     private String idPaciente;
 
-    public Long getIdCita() {
+    public String getIdCita() {
         return idCita;
     }
 
-    public void setIdCita(Long idCita) {
+    public void setIdCita(String idCita) {
         this.idCita = idCita;
     }
 

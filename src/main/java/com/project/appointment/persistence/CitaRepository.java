@@ -37,7 +37,7 @@ public class CitaRepository implements AppointmentRepository {
     }
 
     @Override
-    public Optional<Appointment> getAppointment(long appointmentId) {
+    public Optional<Appointment> getAppointment(String appointmentId) {
         return citaCrudRepository.findById(appointmentId)
                 .map(cita -> mapper.toAppointment(cita));
     }
@@ -45,12 +45,11 @@ public class CitaRepository implements AppointmentRepository {
     @Override
     public Appointment save(Appointment appointment) {
         Cita cita = mapper.toCita(appointment);
-        cita.getDetalles().forEach(detalleCitas -> detalleCitas.setCita(cita));
         return mapper.toAppointment(citaCrudRepository.save(cita));
     }
 
     @Override
-    public void delete(long appointmentId) {
+    public void delete(String appointmentId) {
         citaCrudRepository.deleteById(appointmentId);
     }
 }

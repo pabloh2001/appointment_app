@@ -2,7 +2,7 @@ package com.project.appointment.web.controller;
 
 import com.project.appointment.domain.dto.Patient;
 import com.project.appointment.domain.service.PatientService;
-import com.project.appointment.utils.validators.InvalidDataException;
+import com.project.appointment.utils.HandlerExceptions.InvalidDataException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

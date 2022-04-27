@@ -24,5 +24,6 @@ public interface PatientMapper {
     List<Patient> toPatients(List<Paciente> pacientes);
 
     @InheritInverseConfiguration
+    @Mapping(target = "citas", ignore = true)
     Paciente toPaciente(Patient patient);
 }

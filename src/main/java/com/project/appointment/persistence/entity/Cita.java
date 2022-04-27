@@ -2,7 +2,7 @@ package com.project.appointment.persistence.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "citas")
@@ -12,7 +12,10 @@ public class Cita {
     private String idCita;
     @Column(name = "medicos_id_medico")
     private String idMedico;
+    @Column(name = "pacientes_id_paciente")
+    private String idPaciente;
     private LocalDate fecha;
+    private LocalTime hora;
     private String estado;
 
 
@@ -20,8 +23,9 @@ public class Cita {
     @JoinColumn(name = "medicos_id_medico", insertable = false, updatable = false)
     private Medico medico;
 
-    @OneToMany(mappedBy = "cita", cascade = {CascadeType.ALL})
-    private List<DetalleCitas> detalles;
+    @ManyToOne
+    @JoinColumn(name = "pacientes_id_paciente", insertable = false, updatable = false)
+    private Paciente paciente;
 
     public String getIdCita() {
         return idCita;
@@ -39,12 +43,28 @@ public class Cita {
         this.idMedico = idMedico;
     }
 
+    public String getIdPaciente() {
+        return idPaciente;
+    }
+
+    public void setIdPaciente(String idPaciente) {
+        this.idPaciente = idPaciente;
+    }
+
     public LocalDate getFecha() {
         return fecha;
     }
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
     }
 
     public String getEstado() {
@@ -63,12 +83,11 @@ public class Cita {
         this.medico = medico;
     }
 
-    public List<DetalleCitas> getDetalles() {
-        return detalles;
+    public Paciente getPaciente() {
+        return paciente;
     }
 
-    public void setDetalles(List<DetalleCitas> detalles) {
-        this.detalles = detalles;
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
-
 }

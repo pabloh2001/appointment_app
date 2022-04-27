@@ -1,8 +1,12 @@
 package com.project.appointment.persistence.entity;
 
+import antlr.collections.impl.IntRange;
+
 import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "medicos")
@@ -18,16 +22,19 @@ public class Medico {
     private String numTarjetaProfesional;
     @Column(name = "anos_experiencia")
     private Double tiempoExperiencia;
-    @Column(name = "especialidades_id_especialidad")
-    private Long idEspecialidad;
     @Column(name = "hora_inicio")
     private LocalTime horaInicio;
     @Column(name = "hora_fin")
     private LocalTime horaFin;
 
-    @ManyToOne
-    @JoinColumn(name = "especialidades_id_especialidad", insertable = false, updatable = false)
-    private Especialidad especialidad;
+
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(
+            name = "especialidades_medicos",
+            joinColumns = @JoinColumn(name = "medicos_id_medico"),
+            inverseJoinColumns = @JoinColumn(name = "especialidades_id_especialidad")
+    )
+    private Set<Especialidad> especialidades = new HashSet<>();
 
     @OneToMany(mappedBy = "medico")
     private List<Cita> citas;
@@ -72,14 +79,6 @@ public class Medico {
         this.tiempoExperiencia = tiempoExperiencia;
     }
 
-    public Long getIdEspecialidad() {
-        return idEspecialidad;
-    }
-
-    public void setIdEspecialidad(Long idEspecialidad) {
-        this.idEspecialidad = idEspecialidad;
-    }
-
     public LocalTime getHoraInicio() {
         return horaInicio;
     }
@@ -96,12 +95,12 @@ public class Medico {
         this.horaFin = horaFin;
     }
 
-    public Especialidad getEspecialidad() {
-        return especialidad;
+    public Set<Especialidad> getEspecialidades() {
+        return especialidades;
     }
 
-    public void setEspecialidad(Especialidad especialidad) {
-        this.especialidad = especialidad;
+    public void setEspecialidades(Set<Especialidad> especialidades) {
+        this.especialidades = especialidades;
     }
 
     public List<Cita> getCitas() {
@@ -110,21 +109,5 @@ public class Medico {
 
     public void setCitas(List<Cita> citas) {
         this.citas = citas;
-    }
-
-    @Override
-    public String toString() {
-        return "Medico{" +
-                "idMedico='" + idMedico + '\'' +
-                ", nombreCompleto='" + nombreCompleto + '\'' +
-                ", tipoId='" + tipoId + '\'' +
-                ", numTarjetaProfesional='" + numTarjetaProfesional + '\'' +
-                ", tiempoExperiencia=" + tiempoExperiencia +
-                ", idEspecialidad=" + idEspecialidad +
-                ", horaInicio=" + horaInicio +
-                ", horaFin=" + horaFin +
-                ", especialidad=" + especialidad +
-                ", citas=" + citas +
-                '}';
     }
 }

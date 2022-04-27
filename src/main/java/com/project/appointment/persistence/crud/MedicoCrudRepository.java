@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 public interface MedicoCrudRepository extends CrudRepository<Medico, String> {
-    List<Medico> findByIdEspecialidad(long idEspecialidad);
+
 }

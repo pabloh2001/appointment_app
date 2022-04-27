@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "pacientes")
@@ -21,6 +22,9 @@ public class Paciente {
     private String eps;
     @Column(name = "historia_clinica")
     private String historiaClinica;
+
+    @OneToMany(mappedBy = "paciente")
+    private List<Cita> citas;
 
     public String getIdPaciente() {
         return idPaciente;
@@ -70,15 +74,12 @@ public class Paciente {
         this.historiaClinica = historiaClinica;
     }
 
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "idPaciente='" + idPaciente + '\'' +
-                ", nombreCompleto='" + nombreCompleto + '\'' +
-                ", tipoId='" + tipoId + '\'' +
-                ", fechaNacimiento=" + fechaNacimiento +
-                ", eps='" + eps + '\'' +
-                ", historiaClinica='" + historiaClinica + '\'' +
-                '}';
+    public List<Cita> getCitas() {
+        return citas;
     }
+
+    public void setCitas(List<Cita> citas) {
+        this.citas = citas;
+    }
+
 }

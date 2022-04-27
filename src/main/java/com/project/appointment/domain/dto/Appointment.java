@@ -3,15 +3,16 @@ package com.project.appointment.domain.dto;
 import org.apache.tomcat.jni.Local;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
+import java.time.LocalTime;
+import java.util.UUID;
 
 public class Appointment {
-    private String appointmentId;
+    private String appointmentId = UUID.randomUUID().toString();
     private String doctorId;
+    private String patientId;
     private LocalDate date;
+    private LocalTime time;
     private String state;
-    private List<AppointmentsDetail> appointments;
 
     public String getAppointmentId() {
         return appointmentId;
@@ -29,12 +30,28 @@ public class Appointment {
         this.doctorId = doctorId;
     }
 
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
     public LocalDate getDate() {
         return date;
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getState() {
@@ -45,14 +62,6 @@ public class Appointment {
         this.state = state;
     }
 
-    public List<AppointmentsDetail> getAppointments() {
-        return appointments;
-    }
-
-    public void setAppointments(List<AppointmentsDetail> appointments) {
-        this.appointments = appointments;
-    }
-
     @Override
     public String toString() {
         return "Appointment{" +
@@ -60,7 +69,6 @@ public class Appointment {
                 ", doctorId='" + doctorId + '\'' +
                 ", date=" + date +
                 ", state='" + state + '\'' +
-                ", appointments=" + appointments +
                 '}';
     }
 }

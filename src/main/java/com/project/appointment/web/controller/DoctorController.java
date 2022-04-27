@@ -20,7 +20,7 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
-    @GetMapping("/all")
+    @GetMapping("/")
     public ResponseEntity<List<Doctor>> getAll(){
         return new ResponseEntity<>(doctorService.getAll(), HttpStatus.OK);
     }
@@ -32,15 +32,7 @@ public class DoctorController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/speciality/{specialityId}")
-    public ResponseEntity<List<Doctor>> getDoctorsBySpeciality(@PathVariable("specialityId") long specialityId){
-        return doctorService.getBySpeciality(specialityId)
-                .filter(doctors -> !doctors.isEmpty())
-                .map(doctors -> new ResponseEntity<>(doctors, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @PostMapping("/save")
+    @PostMapping("/")
     public ResponseEntity<Doctor> save(@RequestBody Doctor doctor){
         return new ResponseEntity<>(doctorService.saveDoctor(doctor), HttpStatus.CREATED);
     }
@@ -48,6 +40,7 @@ public class DoctorController {
     @PatchMapping("/update/{id}")
     public ResponseEntity<Doctor> update(@PathVariable("id") String doctorId, @RequestBody Map<String, Object> fields){
         Doctor doctor = doctorService.getById(doctorId).get();
+
         fields.forEach((k, v) -> {
             Field field = ReflectionUtils.findField(Doctor.class, k);
             field.setAccessible(true);

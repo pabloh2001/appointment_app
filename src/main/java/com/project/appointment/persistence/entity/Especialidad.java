@@ -1,7 +1,9 @@
 package com.project.appointment.persistence.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "especialidades")
@@ -13,8 +15,8 @@ public class Especialidad {
     private String descripcion;
     private Boolean estado;
 
-    @OneToMany(mappedBy = "especialidad")
-    private List<Medico> medicos;
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST},mappedBy = "especialidades")
+    private Set<Medico> medicos = new HashSet<>();
 
     public Long getIdEspecialidad() {
         return idEspecialidad;
@@ -40,11 +42,15 @@ public class Especialidad {
         this.estado = estado;
     }
 
-    public List<Medico> getMedicos() {
+    public Set<Medico> getMedicos() {
         return medicos;
     }
 
-    public void setMedicos(List<Medico> medicos) {
+    public void setMedicos(Set<Medico> medicos) {
         this.medicos = medicos;
+    }
+
+    public void addMedico(Medico medico){
+        this.medicos.add(medico);
     }
 }

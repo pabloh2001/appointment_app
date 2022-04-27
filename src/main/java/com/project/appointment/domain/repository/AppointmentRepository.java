@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface AppointmentRepository {
     List<Appointment> getAll();
     Optional<List<Appointment>> getByDoctor(String doctorId);
-    Optional<Appointment> getAppointment(long appointmentId);
+    Optional<Appointment> getAppointment(String appointmentId);
     Appointment save(Appointment appointment);
-    void delete(long appointmentId);
+    void delete(String appointmentId);
 }

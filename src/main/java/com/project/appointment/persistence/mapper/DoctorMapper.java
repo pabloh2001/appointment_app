@@ -19,11 +19,10 @@ public interface DoctorMapper {
             @Mapping(source = "tipoId", target = "typeId"),
             @Mapping(source = "nombreCompleto", target = "fullName"),
             @Mapping(source = "tiempoExperiencia", target = "experienceYears"),
-            @Mapping(source = "idEspecialidad", target = "specialityId"),
             @Mapping(source = "numTarjetaProfesional", target = "proCardNum"),
             @Mapping(source = "horaInicio", target = "startTime"),
             @Mapping(source = "horaFin", target = "endTime"),
-            @Mapping(source = "especialidad", target = "speciality")
+            @Mapping(source = "especialidades", target = "specialities")
 
     })
     Doctor toDoctor(Medico medico);

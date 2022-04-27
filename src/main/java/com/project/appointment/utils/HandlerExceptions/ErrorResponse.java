@@ -1,4 +1,4 @@
-package com.project.appointment.utils.validators;
+package com.project.appointment.utils.HandlerExceptions;
 
 import java.time.LocalDateTime;
 import java.util.List;
