@@ -1,21 +1,24 @@
 package com.project.appointment.domain.dto;
 
-import com.project.appointment.domain.service.AppointmentService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalTime;
-import java.util.List;
 import java.util.Set;
 
 public class Doctor {
 
     private final Log LOGGER = LogFactory.getLog(Doctor.class);
-
+    @NotBlank(message = "el doctorId es requerido")
     private String doctorId;
+    @NotBlank(message = "el typeId es requerido")
     private String typeId;
+    @NotBlank(message = "el fullName es requerido")
     private String fullName;
+    @NotBlank(message = "el experienceYears es requerido")
     private double experienceYears;
+    @NotBlank(message = "el proCardNum es requerido")
     private String proCardNum;
     private LocalTime startTime;
     private LocalTime endTime;
@@ -86,8 +89,7 @@ public class Doctor {
     }
 
     public boolean isAvailable(LocalTime time){
-        LOGGER.info("Hora despues " + time.isAfter(startTime));
-        LOGGER.info("hora antes " + time.isBefore(endTime));
-        return (time.isAfter(startTime) && time.isBefore(endTime));
+        LOGGER.info("entramos a este metodo");
+        return (time.getHour() >= this.startTime.getHour() && time.getHour() <= this.endTime.getHour());
     }
 }

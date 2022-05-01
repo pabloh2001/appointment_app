@@ -1,5 +1,7 @@
 package com.project.appointment.persistence.entity;
 
+
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;

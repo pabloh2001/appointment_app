@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -25,8 +24,8 @@ public class DoctorService {
     }
 
     public Doctor saveDoctor(Doctor doctor){
-        if (!doctor.getStartTime().isAfter(LocalTime.of(06, 00))
-        && doctor.getEndTime().isBefore(LocalTime.of(20, 00))){
+        if (!doctor.getStartTime().isAfter(LocalTime.of(05, 00))
+        && doctor.getEndTime().isBefore(LocalTime.of(21, 00))){
             throw new IllegalArgumentException("Error. El rango de horas de atención para un doctor" +
                     " debe estar entre 06:00 y las 20:00 horas.");
         }

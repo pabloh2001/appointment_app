@@ -1,17 +1,20 @@
 package com.project.appointment.domain.dto;
 
-import org.apache.tomcat.jni.Local;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
 public class Appointment {
     private String appointmentId = UUID.randomUUID().toString();
+    @NotBlank(message = "El campo doctorId es requerido")
     private String doctorId;
+    @NotBlank(message = "El campo patientId es requerido")
     private String patientId;
     private LocalDate date;
     private LocalTime time;
+    @NotBlank(message = "El campo state es requerido")
     private String state;
 
     public String getAppointmentId() {
@@ -62,13 +65,23 @@ public class Appointment {
         this.state = state;
     }
 
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "appointmentId=" + appointmentId +
-                ", doctorId='" + doctorId + '\'' +
-                ", date=" + date +
-                ", state='" + state + '\'' +
-                '}';
+    public boolean validateSpaceBetweenAppointments(LocalTime next){
+        if (next.getHour() > this.time.getHour()+3) {
+            return true;
+        }
+        if (next.getHour() < this.time.getHour()-3){
+            return true;
+        }
+        if (this.time.getHour() < next.getHour()){
+            if (this.time.plusHours(2).equals(next)){
+                return true;
+            }
+        }
+        if (this.time.getHour() > next.getHour()){
+            if (this.time.minusHours(2).equals(next)){
+                return true;
+            }
+        }
+        return false;
     }
 }

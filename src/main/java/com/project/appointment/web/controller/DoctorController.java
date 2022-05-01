@@ -3,12 +3,16 @@ package com.project.appointment.web.controller;
 import com.project.appointment.domain.dto.Doctor;
 import com.project.appointment.domain.dto.Patient;
 import com.project.appointment.domain.service.DoctorService;
+import com.project.appointment.utils.HandlerExceptions.InvalidDataException;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +25,13 @@ public class DoctorController {
     private DoctorService doctorService;
 
     @GetMapping("/")
+    @ApiOperation("Retorna todo los doctores")
     public ResponseEntity<List<Doctor>> getAll(){
         return new ResponseEntity<>(doctorService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{doctorId}")
+    @ApiOperation("Retorna un doctor con id en especifico")
     public ResponseEntity<Doctor> getDoctor(@PathVariable("doctorId") String doctorId){
         return doctorService.getById(doctorId)
                 .map(doctor -> new ResponseEntity<>(doctor, HttpStatus.OK))
@@ -33,11 +39,16 @@ public class DoctorController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Doctor> save(@RequestBody Doctor doctor){
+    @ApiOperation("Registra un doctor")
+    public ResponseEntity<Doctor> save(@Valid @RequestBody Doctor doctor, BindingResult result){
+        if (result.hasErrors()){
+            throw new InvalidDataException(result);
+        }
         return new ResponseEntity<>(doctorService.saveDoctor(doctor), HttpStatus.CREATED);
     }
 
     @PatchMapping("/update/{id}")
+    @ApiOperation("Actualiza un doctor, de momento este endpoint no esta completamente funcional")
     public ResponseEntity<Doctor> update(@PathVariable("id") String doctorId, @RequestBody Map<String, Object> fields){
         Doctor doctor = doctorService.getById(doctorId).get();
 
@@ -50,6 +61,7 @@ public class DoctorController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @ApiOperation("Elimina un doctor por medio de su id")
     public ResponseEntity delete(@PathVariable("id") String doctorId){
         return doctorService.delete(doctorId) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
     }

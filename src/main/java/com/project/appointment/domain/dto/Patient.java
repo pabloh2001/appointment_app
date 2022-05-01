@@ -1,19 +1,21 @@
 package com.project.appointment.domain.dto;
 
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Patient {
-    @NotNull(message = "el id no debe ser nulo")
+    @NotBlank(message = "el id es requerido")
     private String patientId;
-    @NotNull(message = "el tipo de identificacion no debe ser nulo")
+    @NotBlank(message = "el typeId es requerido")
     private String typeId;
-    @NotNull(message = "el nombre no debe ser nulo")
+    @NotBlank(message = "el fullName es requerido")
     private String fullName;
+    @Future(message = "La fecha es posterior a la actual, por lo tanto es invalida.")
     private LocalDate birthDate;
+    @NotBlank(message = "el epsAfiliate es requerido")
     private String epsAfiliate;
+    @NotBlank(message = "el clinicHistory es requerido")
     private String clinicHistory;
 
     public String getPatientId() {

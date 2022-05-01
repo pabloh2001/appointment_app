@@ -30,9 +30,17 @@ public class CitaRepository implements AppointmentRepository {
         return mapper.toAppointments(citas);
     }
 
+
+
     @Override
     public Optional<List<Appointment>> getByDoctor(String doctorId) {
         return citaCrudRepository.findByIdMedico(doctorId)
+                .map(citas -> mapper.toAppointments(citas));
+    }
+
+    @Override
+    public Optional<List<Appointment>> getByPatient(String patientId) {
+        return citaCrudRepository.findByIdPaciente(patientId)
                 .map(citas -> mapper.toAppointments(citas));
     }
 

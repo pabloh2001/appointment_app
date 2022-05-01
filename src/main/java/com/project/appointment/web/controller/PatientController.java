@@ -3,6 +3,7 @@ package com.project.appointment.web.controller;
 import com.project.appointment.domain.dto.Patient;
 import com.project.appointment.domain.service.PatientService;
 import com.project.appointment.utils.HandlerExceptions.InvalidDataException;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,13 @@ public class PatientController {
     private PatientService patientService;
 
     @GetMapping("/")
+    @ApiOperation("Retorna todos los pacientes")
     public ResponseEntity<List<Patient>> getPatients(){
         return patientService.getAll().isEmpty() ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(patientService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{patientId}")
+    @ApiOperation("Retorna un paciente con id en especifico")
     public ResponseEntity<Patient> getPatient(@PathVariable("patientId") String patientId){
         return patientService.getById(patientId)
                 .map(patient -> new ResponseEntity<>(patient,HttpStatus.OK))
@@ -37,6 +40,7 @@ public class PatientController {
     }
 
     @GetMapping("/type-id/{typeId}")
+    @ApiOperation("Retorna los pacientes asociados a un tipo de identificacion")
     public ResponseEntity<List<Patient>> patientsByTypeId(@PathVariable("typeId") String typeId){
         return patientService.getPatientsTypeId(typeId)
                 .filter(patients -> !patients.isEmpty())
@@ -45,8 +49,8 @@ public class PatientController {
     }
 
     @PostMapping("/")
+    @ApiOperation("Registra un paciente")
     public ResponseEntity<Patient> save(@Valid @RequestBody Patient patient, BindingResult result){
-        LOGGER.info(result.hasErrors());
         if (result.hasErrors()){
             throw new InvalidDataException(result);
         }
@@ -54,6 +58,7 @@ public class PatientController {
     }
 
     @PatchMapping("/update/{id}")
+    @ApiOperation("Actualiza informacion parcial de un paciente")
     public ResponseEntity<Patient> update(@PathVariable("id") String patientId, @RequestBody Map<String, Object> fields){
         Patient patient = patientService.getById(patientId).get();
         fields.forEach((k, v) -> {
@@ -65,6 +70,7 @@ public class PatientController {
     }
 
     @DeleteMapping("/delete/{patientId}")
+    @ApiOperation("Elimina un paciente por medio de su id")
     public ResponseEntity delete(@PathVariable("patientId")  String patientId){
         return patientService.deletePatient(patientId) ? new ResponseEntity(HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
